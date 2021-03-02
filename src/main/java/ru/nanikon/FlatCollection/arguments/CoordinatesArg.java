@@ -3,6 +3,9 @@ package ru.nanikon.FlatCollection.arguments;
 import ru.nanikon.FlatCollection.data.Coordinates;
 import ru.nanikon.FlatCollection.data.CoordinatesBuilder;
 
+/**
+ * Corresponds to the Coordinates object. Checks the x and y fields via builder and returns the finished object
+ */
 public class CoordinatesArg extends ObjectArgument<Coordinates> {
     private CoordinatesBuilder builder;
     {

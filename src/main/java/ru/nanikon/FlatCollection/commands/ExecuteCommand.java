@@ -9,6 +9,9 @@ import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.Stack;
 
+/**
+ * Executes a script in which the commands are written in the same form as they are entered in interactive mode
+ */
 public class ExecuteCommand implements Command{
     Stack<Path> pathStack;
     Stack<Scanner> scannerStack;
@@ -26,7 +29,7 @@ public class ExecuteCommand implements Command{
         pathStack.push(file.toPath());
         try {
             scannerStack.push(new Scanner(file));
-            System.out.println(scannerStack.size());
+            //System.out.println(scannerStack.size());
         } catch (FileNotFoundException e) {
             System.out.println("Этой ошибки быть не должно");
         }

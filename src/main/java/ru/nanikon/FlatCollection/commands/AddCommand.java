@@ -6,6 +6,9 @@ import ru.nanikon.FlatCollection.data.Flat;
 import ru.nanikon.FlatCollection.data.FlatBuilder;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * Adds an object to the collection
+ */
 public class AddCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {new FlatArg()};

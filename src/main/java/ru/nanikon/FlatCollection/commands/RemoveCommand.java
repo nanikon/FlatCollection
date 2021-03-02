@@ -4,6 +4,9 @@ import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 import ru.nanikon.FlatCollection.arguments.IdArg;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * delete an item from the collection by its id
+ */
 public class RemoveCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {new IdArg()};

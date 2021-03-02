@@ -2,6 +2,9 @@ package ru.nanikon.FlatCollection.arguments;
 
 import ru.nanikon.FlatCollection.data.View;
 
+/**
+ * Matches the View enum and checks that the entered value is one of the constants
+ */
 public class ViewArg extends EnumArgument<View> {
     @Override
     public void setValue(String value) {

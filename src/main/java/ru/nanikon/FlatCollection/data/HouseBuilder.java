@@ -2,6 +2,10 @@ package ru.nanikon.FlatCollection.data;
 
 import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
 
+/**
+ * Builder House class. Checks the fields and creates an object
+ */
+
 public class HouseBuilder {
     private String name; //Поле может быть null
     private Long year; //Поле может быть null, Значение поля должно быть больше 0

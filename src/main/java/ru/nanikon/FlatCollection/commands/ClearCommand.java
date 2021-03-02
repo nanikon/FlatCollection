@@ -3,6 +3,9 @@ package ru.nanikon.FlatCollection.commands;
 import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * Clear collection
+ */
 public class ClearCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {};

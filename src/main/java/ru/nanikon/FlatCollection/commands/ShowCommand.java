@@ -3,6 +3,10 @@ package ru.nanikon.FlatCollection.commands;
 import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * output all elements of the collection in a string representation to the standard output stream
+ */
+
 public class ShowCommand implements Command{
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {};

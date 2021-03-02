@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Checks that the file with the name that the user entered exists and can be opened for reading
+ */
 public class FileArg extends AbstractArgument<String> {
     @Override
     public void setValue(String value) throws IOException {

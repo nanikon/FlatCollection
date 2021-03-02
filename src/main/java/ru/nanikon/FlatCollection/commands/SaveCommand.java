@@ -5,6 +5,9 @@ import ru.nanikon.FlatCollection.utility.CollectionManager;
 
 import java.io.IOException;
 
+/**
+ * save the collection to a file
+ */
 public class SaveCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {};

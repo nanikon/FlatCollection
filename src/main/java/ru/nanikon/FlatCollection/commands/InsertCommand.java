@@ -7,6 +7,9 @@ import ru.nanikon.FlatCollection.data.Flat;
 import ru.nanikon.FlatCollection.data.FlatBuilder;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * добавить новый элемент в заданную позицию
+ */
 public class InsertCommand implements Command{
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {new IdArg(), new FlatArg()};

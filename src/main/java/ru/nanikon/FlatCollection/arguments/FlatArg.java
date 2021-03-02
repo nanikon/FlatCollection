@@ -7,6 +7,9 @@ import ru.nanikon.FlatCollection.data.View;
 
 import java.util.Arrays;
 
+/**
+ * Corresponds to the Flat object, contains a convenient way to check the fields and the necessary messages for output
+ */
 public class FlatArg extends ObjectArgument<Flat> {
     private FlatBuilder builder = new FlatBuilder();
     {

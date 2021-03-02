@@ -34,7 +34,7 @@ public class UpdateCommand implements Command {
             newBuilder.setX(newFields.contains("x") ? String.valueOf(oldBuilder.getX()) : String.valueOf(oldFlat.getX()));
             newBuilder.setY(newFields.contains("y") ? String.valueOf(oldBuilder.getY()) : String.valueOf(oldFlat.getY()));
             newBuilder.setArea(newFields.contains("area") ? String.valueOf(oldBuilder.getArea()) : String.valueOf(oldFlat.getArea()));
-            newBuilder.setNumberOfRooms(newFields.contains("numberOfRooms") ? String.valueOf(oldBuilder.getArea()) : String.valueOf(oldFlat.getArea()));
+            newBuilder.setNumberOfRooms(newFields.contains("numberOfRooms") ? String.valueOf(oldBuilder.getNumberOfRooms()) : String.valueOf(oldFlat.getNumberOfRooms()));
             String builderCentralHeating = oldBuilder.isCentralHeating() ? "+" : "-";
             String flatCentralHeating = oldFlat.isCentralHeating() ? "+" : "-";
             newBuilder.setCentralHeating(newFields.contains("centralHeating") ? builderCentralHeating : flatCentralHeating);

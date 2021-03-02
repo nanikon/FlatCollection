@@ -5,6 +5,9 @@ import ru.nanikon.FlatCollection.arguments.ViewArg;
 import ru.nanikon.FlatCollection.data.View;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * output elements whose view field value is less than the specified value
+ */
 public class FilterLessThanViewCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {new ViewArg()};

@@ -4,6 +4,9 @@ import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 
 import java.util.HashMap;
 
+/**
+ * display help for available commands
+ */
 public class HelpCommand implements Command{
     private HashMap<String, Command> commands;
     private AbstractArgument<?>[] params = {};

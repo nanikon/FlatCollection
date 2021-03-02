@@ -6,6 +6,9 @@ import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.Stack;
 
+/**
+ * Terminates the execution of a script or all programs. Does not save the collection to a file!
+ */
 public class ExitCommand implements Command {
     private Stack<Path> pathStack;
     Stack<Scanner> scannerStack;

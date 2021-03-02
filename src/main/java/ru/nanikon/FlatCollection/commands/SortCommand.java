@@ -3,8 +3,9 @@ package ru.nanikon.FlatCollection.commands;
 import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
-import java.util.Collections;
-
+/**
+ * sort the collection in the natural order
+ */
 public class SortCommand implements Command{
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {};

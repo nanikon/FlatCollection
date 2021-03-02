@@ -4,6 +4,9 @@ import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 
 import java.util.Deque;
 
+/**
+ * output the last 8 commands (without their arguments)
+ */
 public class HistoryCommand implements Command{
     Deque<String> history;
     private AbstractArgument<?>[] params = {};

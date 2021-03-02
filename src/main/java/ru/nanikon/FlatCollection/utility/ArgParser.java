@@ -11,7 +11,19 @@ import ru.nanikon.FlatCollection.exceptions.ScriptException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * A parser for command line arguments (as read from the console or from a file). All three methods are static since there is no binding to the instance
+ */
+
 public class ArgParser {
+    /**
+     * Parses an object, asking for and receiving all its fields in turn
+     * @param arg - the argument corresponding to the desired object
+     * @param scr - active scanner in this moment
+     * @param isConsole - whether we are currently working in interactive mode. If with a file - false
+     * @param isPartly - do I need to ask before each field whether we will enter it? Set to true for commands such as update
+     * @throws ScriptException
+     */
     public static void parseObject(ObjectArgument<?> arg, Scanner scr, boolean isConsole, boolean isPartly) throws ScriptException {
         HashMap<String[], ThrowConsumer<String>> params = arg.getParams();
         arg.clear();
@@ -25,7 +37,13 @@ public class ArgParser {
                     if (isConsole) {
                         System.out.println("Хотите изменить поле " + param[1] + "? Если да, введите +, иначе -");
                     }
-                    String line = scr.nextLine();
+                    String line;
+                    try {
+                        line = scr.nextLine();
+                    } catch (NoSuchElementException e) {
+                        System.out.println("Скрипт закончился некорректно");
+                        return;
+                    }
                     if (line.equals("+")) {
                         break;
                     } else if(line.equals("-")) {
@@ -67,16 +85,33 @@ public class ArgParser {
                     } else {
                         throw new ScriptException("Ошибка в скрипте!" + e.getMessage());
                     }
+                } catch (NoSuchElementException e) {
+                    System.out.println("Скрипт закончился некорректно");
+                    return;
                 }
             } while(!right);
         }
         arg.setValue("");
     }
 
+    /**
+     *
+     * @param arg - parses the pim argument, which is entered on the same line as the command. You do not need to ask again in the parser, because in case of incorrect input, you need to re-type the command, so the errors are thrown further
+     * @param line - arg as String
+     * @throws IOException
+     */
     public static void parseLine(AbstractArgument<?> arg, String line) throws IOException {
         arg.setValue(line);
     }
 
+    /**
+     *
+     * @param arg - the argument corresponding to the enumeration
+     * @param value - the value read after the command
+     * @param scr - whether we are currently working in interactive mode. If with a file - false
+     * @param isConsole - do I need to ask before each field whether we will enter it? Set to true for commands such as update
+     * @throws ScriptException
+     */
     public static void parseEnum(EnumArgument<?> arg, String value, Scanner scr, boolean isConsole) throws ScriptException {
         boolean right = true;
         do {
@@ -88,7 +123,12 @@ public class ArgParser {
                     System.out.println("Ошибка! " + e.getMessage() + "Повторите ввод ещё раз, ");
                     System.out.println(arg.getConstants());
                     right = false;
-                    value = scr.nextLine();
+                    try {
+                        value = scr.nextLine();
+                    } catch (NoSuchElementException ex) {
+                        System.out.println("Скрипт закончился некорректно");
+                        return;
+                    }
                 } else {
                     throw new ScriptException("В скрипте обнаружена ошибка! " + e.getMessage());
                 }

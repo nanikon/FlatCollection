@@ -1,5 +1,8 @@
 package ru.nanikon.FlatCollection.data;
 
+/**
+ * Builder Coordinates class. Checks the fields and creates an object
+ */
 public class CoordinatesBuilder {
     private double x;
     private Double y;

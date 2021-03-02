@@ -2,6 +2,9 @@ package ru.nanikon.FlatCollection.arguments;
 
 import ru.nanikon.FlatCollection.data.Transport;
 
+/**
+ * Matches the Transport enum and checks that the entered value is one of the constants
+ */
 public class TransportArg extends EnumArgument<Transport> {
     @Override
     public void setValue(String value) {

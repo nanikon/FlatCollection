@@ -1,5 +1,9 @@
 package ru.nanikon.FlatCollection.data;
 
+/**
+ * Additional class to describe the main one
+ */
+
 public class Coordinates {
     private double x;
     private Double y; //Поле не может быть null

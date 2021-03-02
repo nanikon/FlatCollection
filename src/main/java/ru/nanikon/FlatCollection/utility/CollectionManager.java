@@ -3,17 +3,22 @@ package ru.nanikon.FlatCollection.utility;
 import ru.nanikon.FlatCollection.data.Flat;
 import ru.nanikon.FlatCollection.data.Transport;
 import ru.nanikon.FlatCollection.data.View;
+import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
 
 import java.io.IOException;
 import java.nio.file.attribute.FileTime;
 import java.util.Collections;
 import java.util.LinkedList;
 
+/**
+ * Performs all work with the collection. Depends on the parser of the file with the collection
+ */
+
 public class CollectionManager {
     private LinkedList<Flat> flatsCollection = new LinkedList<>();
     private JsonLinkedListParser parser;
 
-    public CollectionManager(JsonLinkedListParser parser) throws IOException {
+    public CollectionManager(JsonLinkedListParser parser) throws IOException, FileCollectionException {
         this.parser = parser;
         loadCollection();
     }
@@ -84,7 +89,7 @@ public class CollectionManager {
         }
     }
 
-    public void loadCollection() throws IOException {
+    public void loadCollection() throws IOException, FileCollectionException {
         flatsCollection = parser.read();
     }
 

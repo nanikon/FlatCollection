@@ -4,8 +4,11 @@ import ru.nanikon.FlatCollection.exceptions.BooleanInputException;
 import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
+
+/**
+ * Builder Flat class. Checks the fields and creates an object. Contains the Coordinates and House builders
+ */
 
 public class FlatBuilder {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически

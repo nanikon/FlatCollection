@@ -1,5 +1,8 @@
 package ru.nanikon.FlatCollection.arguments;
 
+/**
+ *
+ */
 public class IdArg extends AbstractArgument<Integer> {
     @Override
     public void setValue(String value) {

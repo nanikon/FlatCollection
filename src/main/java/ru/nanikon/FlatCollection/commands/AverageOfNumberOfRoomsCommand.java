@@ -4,6 +4,9 @@ package ru.nanikon.FlatCollection.commands;
 import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * Calculates the average value of the numberOfRooms field for the entire collection
+ */
 public class AverageOfNumberOfRoomsCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {};

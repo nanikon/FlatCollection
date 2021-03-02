@@ -1,5 +1,9 @@
 package ru.nanikon.FlatCollection.arguments;
 
+/**
+ * The superclass of all of the arguments-enum
+ * @param <T>
+ */
 abstract public class EnumArgument<T extends Enum<?>> extends AbstractArgument<T> {
     public boolean isObject() {
         return false;

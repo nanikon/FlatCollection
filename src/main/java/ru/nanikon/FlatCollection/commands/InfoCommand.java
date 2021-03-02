@@ -5,6 +5,9 @@ import ru.nanikon.FlatCollection.utility.CollectionManager;
 
 import java.io.IOException;
 
+/**
+ * output information about the collection (type, initialization date, number of elements) to the standard output stream.)
+ */
 public class InfoCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {};

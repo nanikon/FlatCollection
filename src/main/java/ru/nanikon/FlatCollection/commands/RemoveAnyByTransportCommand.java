@@ -5,6 +5,9 @@ import ru.nanikon.FlatCollection.arguments.TransportArg;
 import ru.nanikon.FlatCollection.data.Transport;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
+/**
+ * remove one element from the collection whose transport field value is equivalent to the specified one
+ */
 public class RemoveAnyByTransportCommand implements Command{
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {new TransportArg()};

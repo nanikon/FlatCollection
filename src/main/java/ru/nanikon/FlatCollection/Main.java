@@ -2,6 +2,7 @@ package ru.nanikon.FlatCollection;
 
 import ru.nanikon.FlatCollection.arguments.*;
 import ru.nanikon.FlatCollection.commands.*;
+import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
 import ru.nanikon.FlatCollection.exceptions.ScriptException;
 import ru.nanikon.FlatCollection.utility.ArgParser;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
@@ -10,6 +11,11 @@ import ru.nanikon.FlatCollection.utility.JsonLinkedListParser;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+
+/**
+ * Main application class. Creates all instances, runs and execute the program.
+ * @author Nikonova Natalia
+ */
 
 public class Main {
     public static void main(String[] args) {
@@ -21,11 +27,11 @@ public class Main {
             System.exit(0);
         }
         JsonLinkedListParser parser = new JsonLinkedListParser(args[0]);
-        //JsonLinkedListParser parser = new JsonLinkedListParser("example.json");
+        //JsonLinkedListParser parser = new JsonLinkedListParser("exsample.json");
         CollectionManager collectionManager = null;
         try {
             collectionManager = new CollectionManager(parser);
-        } catch (IOException e) {
+        } catch (FileCollectionException | IOException e) {
             System.out.println(e.getMessage() + ". Проверьте его и запустите программу ещё раз.");
             System.exit(0);
         }
@@ -112,20 +118,19 @@ public class Main {
                     String answer = rightScr.nextLine();
                     if (answer.equals("+")) {
                         right = true;
-                        continue offer;
                     } else if (answer.equals("-")) {
                         right = true;
                         scr.close();
                         scr = scannerStack.pop();
                         Path path = pathStack.pop();
                     } else {
-                        System.out.println("Ожидалось +/-б а встречено " + answer);
+                        System.out.println("Ожидалось +/-, а встречено " + answer);
                     }
                 }
             }
             while (!scr.hasNextLine()) {
-                scr = scannerStack.pop();
                 scr.close();
+                scr = scannerStack.pop();
                 Path path = pathStack.pop();
             }
         }

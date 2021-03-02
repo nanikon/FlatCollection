@@ -2,6 +2,10 @@ package ru.nanikon.FlatCollection.arguments;
 
 import java.util.HashMap;
 
+/**
+ * Superclass of all object arguments.
+ * @param <T>
+ */
 abstract public class ObjectArgument<T> extends AbstractArgument<T> {
     protected HashMap<String[], ThrowConsumer<String>> params = new HashMap<>();
 
