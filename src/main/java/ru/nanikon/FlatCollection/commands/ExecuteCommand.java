@@ -25,6 +25,10 @@ public class ExecuteCommand implements Command{
 
     @Override
     public void execute(AbstractArgument<?>[] params) {
+        if (scannerStack.size() > 100000) {
+            System.out.println("Ещё один файл откроется - и память утонет, так что мы остановили рекурсивное выполнение скрипта");
+            return;
+        }
         File file = new File(((FileArg) params[0]).getValue());
         pathStack.push(file.toPath());
         try {

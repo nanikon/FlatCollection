@@ -14,6 +14,7 @@ public class RemoveCommand implements Command {
 
     public RemoveCommand(CollectionManager collection) {
         this.collection = collection;
+        ((IdArg) params[0]).setCollection(collection);
     }
 
     @Override

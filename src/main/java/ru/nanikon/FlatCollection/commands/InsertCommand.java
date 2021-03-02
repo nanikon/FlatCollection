@@ -17,6 +17,7 @@ public class InsertCommand implements Command{
 
     public InsertCommand(CollectionManager collection) {
         this.collection = collection;
+        ((IdArg) params[0]).setCollection(collection);
     }
     @Override
     public void execute(AbstractArgument<?>[] params) {

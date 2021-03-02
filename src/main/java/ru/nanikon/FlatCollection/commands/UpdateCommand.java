@@ -19,6 +19,7 @@ public class UpdateCommand implements Command {
 
     public UpdateCommand(CollectionManager collection) {
         this.collection = collection;
+        ((IdArg) params[0]).setCollection(collection);
     }
     @Override
     public void execute(AbstractArgument<?>[] params) {
