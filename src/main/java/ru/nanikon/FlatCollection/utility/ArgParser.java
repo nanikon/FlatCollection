@@ -1,5 +1,6 @@
 package ru.nanikon.FlatCollection.utility;
 
+import ru.nanikon.FlatCollection.Main;
 import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 import ru.nanikon.FlatCollection.arguments.EnumArgument;
 import ru.nanikon.FlatCollection.arguments.ObjectArgument;
@@ -22,7 +23,7 @@ public class ArgParser {
      * @param scr - active scanner in this moment
      * @param isConsole - whether we are currently working in interactive mode. If with a file - false
      * @param isPartly - do I need to ask before each field whether we will enter it? Set to true for commands such as update
-     * @throws ScriptException
+     * @throws ScriptException - called if a script is executed and an incorrect command is found in it
      */
     public static void parseObject(ObjectArgument<?> arg, Scanner scr, boolean isConsole, boolean isPartly) throws ScriptException {
         HashMap<String[], ThrowConsumer<String>> params = arg.getParams();
@@ -33,47 +34,52 @@ public class ArgParser {
         for (String[] param : fields) {
             boolean right;
             if (isPartly) {
+                if (isConsole) {
+                    System.out.println("Хотите изменить поле " + param[1] + "? Если да, введите +, иначе -");
+                    System.out.print(Main.PS2);
+                }
                 do {
-                    if (isConsole) {
-                        System.out.println("Хотите изменить поле " + param[1] + "? Если да, введите +, иначе -");
-                    }
                     String line;
                     try {
-                        line = scr.nextLine();
+                        line = scr.nextLine().trim();
                     } catch (NoSuchElementException e) {
                         System.out.println("Скрипт закончился некорректно");
                         return;
                     }
                     if (line.equals("+")) {
                         break;
-                    } else if(line.equals("-")) {
+                    } else if (line.equals("-")) {
                         continue ofer;
                     } else {
                         if (isConsole) {
                             System.out.println("Ожидалось +/-, встречено " + line + ". Попробуйте ещё раз.");
+                            System.out.print(Main.PS2);
                         } else {
                             throw new ScriptException("Ошибка в скрипте!" + "Ожидалось +/-, встречено " + line);
                         }
                     }
                 } while (true);
             }
+            if (isConsole) {
+                System.out.println(param[0] + " Введите поле " + param[1] + ". " + param[2]);
+                System.out.print(Main.PS2);
+            }
             do {
                 right = true;
-                if (isConsole) {
-                    System.out.println(param[0] + " Введите поле " + param[1] + ". " + param[2]);
-                };
                 try {
-                    params.get(param).accept(scr.nextLine());
+                    params.get(param).accept(scr.nextLine().trim());
                 } catch (NumberFormatException e) {
                     if (isConsole) {
                         System.out.println("Ошибка! Введеная строка не является числом! Попробуйте ещё раз");
                         right = false;
+                        System.out.print(Main.PS2);
                     } else {
                         throw new ScriptException("Ошибка в скрипте! Ожидалось число, а встречена строка");
                     }
                 } catch (NullPointerException | IllegalArgumentException e) {
                     if (isConsole) {
                         System.out.println("Ошибка! " + e.getMessage() + " Попробуйте ещё раз.");
+                        System.out.print(Main.PS2);
                         right = false;
                     } else {
                         throw new ScriptException("Ошибка в скрипте! " + e.getMessage());
@@ -82,6 +88,7 @@ public class ArgParser {
                     if (isConsole) {
                         System.out.println("Ошибка! " + e.getMessage() + " Попробуйте ещё раз.");
                         right = false;
+                        System.out.print(Main.PS2);
                     } else {
                         throw new ScriptException("Ошибка в скрипте!" + e.getMessage());
                     }
@@ -98,7 +105,7 @@ public class ArgParser {
      *
      * @param arg - parses the pim argument, which is entered on the same line as the command. You do not need to ask again in the parser, because in case of incorrect input, you need to re-type the command, so the errors are thrown further
      * @param line - arg as String
-     * @throws IOException
+     * @throws IOException - called if in execute_script command file isn't found
      */
     public static void parseLine(AbstractArgument<?> arg, String line) throws IOException {
         arg.setValue(line);
@@ -110,7 +117,7 @@ public class ArgParser {
      * @param value - the value read after the command
      * @param scr - whether we are currently working in interactive mode. If with a file - false
      * @param isConsole - do I need to ask before each field whether we will enter it? Set to true for commands such as update
-     * @throws ScriptException
+     * @throws ScriptException - called if a script is executed and an incorrect command is found in it
      */
     public static void parseEnum(EnumArgument<?> arg, String value, Scanner scr, boolean isConsole) throws ScriptException {
         boolean right = true;
@@ -120,19 +127,33 @@ public class ArgParser {
                 right = true;
             } catch (IllegalArgumentException | NullPointerException e) {
                 if (isConsole) {
-                    System.out.println("Ошибка! " + e.getMessage() + "Повторите ввод ещё раз, ");
+                    System.out.println("Ошибка! " + e.getMessage() + " Повторите ввод ещё раз, используя следующие варианты:");
                     System.out.println(arg.getConstants());
                     right = false;
-                    try {
-                        value = scr.nextLine();
-                    } catch (NoSuchElementException ex) {
-                        System.out.println("Скрипт закончился некорректно");
-                        return;
-                    }
+                    System.out.print(Main.PS2);
+                    value = scr.nextLine().trim();
                 } else {
                     throw new ScriptException("В скрипте обнаружена ошибка! " + e.getMessage());
                 }
+            } catch (NoSuchElementException ex) {
+                System.out.println("Скрипт закончился некорректно");
+                return;
             }
         } while (!right);
+    }
+
+    public static boolean parseYesNot() {
+        do {
+            System.out.print(Main.PS2);
+            Scanner rightScr = new Scanner(System.in);
+            String answer = rightScr.nextLine().trim();
+            if (answer.equals("+")) {
+                return true;
+            } else if (answer.equals("-")) {
+                return false;
+            } else {
+                System.out.println("Ожидалось +/-, а встречено " + answer);
+            }
+        } while (true);
     }
 }

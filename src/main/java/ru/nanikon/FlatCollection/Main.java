@@ -18,16 +18,19 @@ import java.util.*;
  */
 
 public class Main {
+    public static String PS1 = "$";
+    public static String PS2 = ">";
+
     public static void main(String[] args) {
-        /*if (args.length == 0) {
+        if (args.length == 0) {
             System.out.println("Ошибка! В аргументе вы не указали имя файла. Запустите программу вместе с ним ещё раз.");
             System.exit(0);
         } else if (args.length > 1) {
             System.out.println("Ошибка! Вы указали слишком много аргументов. Запустите программу ещё раз вместе с одним.");
             System.exit(0);
         }
-        JsonLinkedListParser parser = new JsonLinkedListParser(args[0]);*/
-        JsonLinkedListParser parser = new JsonLinkedListParser("exsample.json");
+        JsonLinkedListParser parser = new JsonLinkedListParser(args[0]);
+        //JsonLinkedListParser parser = new JsonLinkedListParser("exsample.json");
         CollectionManager collectionManager = null;
         try {
             collectionManager = new CollectionManager(parser);
@@ -58,7 +61,10 @@ public class Main {
         Scanner scr = new Scanner(System.in);
         offer:
         while (true) {
-            String[] line = scr.nextLine().split(" ");
+            if (pathStack.isEmpty()) {
+                System.out.print(PS1);
+            }
+            String[] line = scr.nextLine().trim().split("[ \t\f]+");
             String nameCommand = line[0];
             int i = 1;
             try {
@@ -67,6 +73,13 @@ public class Main {
                     AbstractArgument<?>[] listArg = command.getArgs();
                     for (AbstractArgument arg : listArg) {
                         if (arg.isObject()) {
+                            if (i < line.length) {
+                                if (!pathStack.isEmpty()) {
+                                    throw new ScriptException("Ошибка в скрипте! Введено слишком много аргументов!");
+                                }
+                                System.out.println("Вы ввели слишком много аргументов. Попробуйте ещё раз");
+                                continue offer;
+                            }
                             ArgParser.parseObject((ObjectArgument<?>) arg, scr, pathStack.isEmpty(), nameCommand.equals("update"));
                         } else if (arg.isEnum()) {
                             ArgParser.parseEnum((EnumArgument<?>) arg, line[i++], scr, pathStack.isEmpty());
@@ -102,7 +115,7 @@ public class Main {
                         command.execute(listArg);
                         scr = scannerStack.pop();
                     }
-                } else {
+                } else if (!nameCommand.equals("")) {
                     if (pathStack.isEmpty()) {
                         System.out.println("Команды с именем " + nameCommand + " не существует. Проверьте правильность написания и попробуйте ещё раз.");
                     } else {
@@ -112,23 +125,22 @@ public class Main {
             } catch (ScriptException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Введите +, если хотите продолжить работу со скриптом, пропустив эту команду, и -, если хотите завершить выполнение скрипта");
-                Scanner rightScr = new Scanner(System.in);
-                boolean right = false;
-                while (!right) {
-                    String answer = rightScr.nextLine();
-                    if (answer.equals("+")) {
-                        right = true;
-                    } else if (answer.equals("-")) {
-                        right = true;
-                        scr.close();
-                        scr = scannerStack.pop();
-                        Path path = pathStack.pop();
-                    } else {
-                        System.out.println("Ожидалось +/-, а встречено " + answer);
+                boolean answer = ArgParser.parseYesNot();
+                if (answer) {
+                    StringJoiner findCommand = new StringJoiner("|");
+                    for (String name : commands.keySet()) {
+                        findCommand.add(name);
                     }
+                    while (!scr.hasNext(findCommand.toString()) & scr.hasNextLine()) {
+                        scr.nextLine();
+                    }
+                } else {
+                    scr.close();
+                    scr = scannerStack.pop();
+                    Path path = pathStack.pop();
                 }
             }
-            while (!scr.hasNextLine()) {
+            while (!(pathStack.isEmpty() || scr.hasNextLine())) {
                 scr.close();
                 scr = scannerStack.pop();
                 Path path = pathStack.pop();

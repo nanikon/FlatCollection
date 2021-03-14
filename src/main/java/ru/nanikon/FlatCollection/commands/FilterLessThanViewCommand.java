@@ -20,7 +20,7 @@ public class FilterLessThanViewCommand implements Command {
     @Override
     public void execute(AbstractArgument<?>[] params) {
         View view = ((ViewArg) params[0]).getValue();
-        System.out.println("Коллекции со значением поля вид меньше, чем " + view);
+        System.out.println("Объекты коллекции со значением поля вид меньше, чем " + view);
         System.out.println(collection.viewFilteredInfo(view));
     }
 
