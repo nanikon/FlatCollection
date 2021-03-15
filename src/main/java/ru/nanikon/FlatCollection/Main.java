@@ -22,15 +22,15 @@ public class Main {
     public static String PS2 = ">";
 
     public static void main(String[] args) {
-        /*if (args.length == 0) {
+        if (args.length == 0) {
             System.out.println("Ошибка! В аргументе вы не указали имя файла. Запустите программу вместе с ним ещё раз.");
             System.exit(-1);
         } else if (args.length > 1) {
             System.out.println("Ошибка! Вы указали слишком много аргументов. Запустите программу ещё раз вместе с одним.");
             System.exit(-1);
         }
-        JsonLinkedListParser parser = new JsonLinkedListParser(args[0]);*/
-        JsonLinkedListParser parser = new JsonLinkedListParser("exsample.json");
+        JsonLinkedListParser parser = new JsonLinkedListParser(args[0]);
+        //JsonLinkedListParser parser = new JsonLinkedListParser("exsample.json");
         CollectionManager collectionManager = null;
         try {
             collectionManager = new CollectionManager(parser);
