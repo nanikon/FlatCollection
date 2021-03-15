@@ -6,7 +6,6 @@ import ru.nanikon.FlatCollection.data.View;
 import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
 
 import java.io.IOException;
-import java.nio.file.attribute.FileTime;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -17,10 +16,12 @@ import java.util.LinkedList;
 public class CollectionManager {
     private LinkedList<Flat> flatsCollection = new LinkedList<>();
     private JsonLinkedListParser parser;
+    private String saveTime;
 
     public CollectionManager(JsonLinkedListParser parser) throws IOException, FileCollectionException {
         this.parser = parser;
         loadCollection();
+        saveTime = parser.getSaveTime().toString().substring(0,10) + " " + parser.getSaveTime().toString().substring(11,19);
     }
 
     public int generateNextId() {
@@ -35,11 +36,13 @@ public class CollectionManager {
         return flatsCollection.size();
     }
 
-    public String getType() { return Flat.class.toString(); }
+    public String getType() { return Flat.class.getName(); }
 
-    public FileTime getCreationDate() throws IOException {
-        return parser.getCreationDate();
+    public String getCreationDate() throws IOException {
+        return parser.getCreationDate().toString().substring(0,10) + " " + parser.getCreationDate().toString().substring(11,19);
     }
+
+    public String getFileName() { return parser.getPath(); }
 
     public Flat getFirst() {
         return flatsCollection.getLast();
@@ -99,6 +102,12 @@ public class CollectionManager {
 
     public void saveCollection() throws IOException {
         parser.write(flatsCollection);
+        String now = java.time.ZonedDateTime.now().toString();
+        saveTime = now.substring(0, 10) + " " + now.substring(11, 19);
+    }
+
+    public String getSaveTime() {
+        return saveTime;
     }
 
     public void sortCollection() {
@@ -117,7 +126,7 @@ public class CollectionManager {
         long result = 0;
         for (Flat flat : flatsCollection) {
             result += flat.getNumberOfRooms();
-        };
+        }
         result = result / getSize();
         return (int) result;
     }

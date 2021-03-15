@@ -12,9 +12,9 @@ public class CoordinatesBuilder {
             this.x = Double.parseDouble(x);
         } catch (NumberFormatException e) {
             if (x.equals("")) {
-                throw new NullPointerException("Поле координата х не может быть пустым!");
+                throw new NullPointerException("Поле координата х не может быть пустым");
             } else {
-                throw e;
+                throw new NumberFormatException("Поле координата х должно быть вещественным числом");
             }
         }
     }
@@ -24,9 +24,9 @@ public class CoordinatesBuilder {
             this.y = Double.valueOf(y);
         } catch (NumberFormatException e) {
             if (y.equals("")) {
-                throw new NullPointerException("Поле координата y не может быть пустым!");
+                throw new NullPointerException("Поле координата y не может быть пустым");
             } else {
-                throw e;
+                throw new NumberFormatException("Поле координата y должно быть вещественным числом");
             }
         }
     }

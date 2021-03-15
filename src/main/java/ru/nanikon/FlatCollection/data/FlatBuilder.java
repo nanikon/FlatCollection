@@ -25,14 +25,26 @@ public class FlatBuilder {
     private HouseBuilder houseBuilder = new HouseBuilder();
     private HashSet<String> changed = new HashSet<>();
 
-    public void setId(int id) {
-        this.id = id;
-        changed.add("id");
+    public void setId(String value) throws NotPositiveNumberException {
+        try {
+            int id = Integer.parseInt(value);
+            if (id < 1) {
+                throw new NotPositiveNumberException("Поле id должно быть целым положительным числом");
+            }
+            this.id = id;
+            changed.add("id");
+        } catch (NumberFormatException e) {
+            if (value.equals("")) {
+                throw new NullPointerException("Поле id не может быть пустым");
+            } else {
+                throw new NumberFormatException("Поле id должно быть целым положительным числом");
+            }
+        }
     }
 
     public void setName(String name) {
         if (name.equals("")) {
-            throw new NullPointerException("Поле имя квартиры не может быть пустым!");
+            throw new NullPointerException("Поле имя квартиры не может быть пустым");
         } else {
             this.name = name;
             changed.add("name");
@@ -60,9 +72,9 @@ public class FlatBuilder {
             }
         } catch (NumberFormatException e) {
             if (value.equals("")) {
-                throw new NullPointerException("Поле площадь квартиры не может быть пустым!");
+                throw new NullPointerException("Поле площадь квартиры не может быть пустым");
             } else {
-                throw e;
+                throw new NumberFormatException("Поле площадь квартиры быть целым числом");
             }
         }
     }
@@ -71,7 +83,7 @@ public class FlatBuilder {
         try {
             Integer result = Integer.valueOf(value);
             if (result <= 0) {
-                throw new NotPositiveNumberException("Число комнат в квартире должно быть целым положительным числом!");
+                throw new NotPositiveNumberException("Число комнат в квартире должно быть целым положительным числом");
             } else {
                 this.numberOfRooms = result;
                 changed.add("numberOfRooms");
@@ -81,7 +93,7 @@ public class FlatBuilder {
                 this.numberOfRooms = null;
                 changed.add("numberOfRooms");
             } else {
-                throw e;
+                throw new NumberFormatException("Поле число комнат должно быть целым числом");
             }
         }
     }
@@ -155,7 +167,7 @@ public class FlatBuilder {
         changed = new HashSet<>();
     }
 
-    public Flat getResult() { return new Flat(id, name, coordsBuilder.getResult(), area, numberOfRooms, centralHeating, view, transport, houseBuilder.getResult()); }
+    public Flat getResult() { return new Flat(id, name, coordsBuilder.getResult(), creationDate, area, numberOfRooms, centralHeating, view, transport, houseBuilder.getResult()); }
 
     public CoordinatesBuilder getCoordsBuilder() { return coordsBuilder; }
 

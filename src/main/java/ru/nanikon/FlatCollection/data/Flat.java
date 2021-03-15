@@ -10,7 +10,7 @@ public class Flat implements Comparable<Flat> {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    transient private java.time.ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private java.time.ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private long area; //Значение поля должно быть больше 0
     private Integer numberOfRooms; //Поле может быть null, Значение поля должно быть больше 0
     private boolean centralHeating;
@@ -18,7 +18,7 @@ public class Flat implements Comparable<Flat> {
     private Transport transport; //Поле не может быть null
     private House house; //Поле не может быть null
 
-    Flat(int id, String name, Coordinates coordinates, long area, Integer numberOfRooms, boolean centralHeating, View view, Transport transport, House house) {
+    Flat(int id, String name, Coordinates coordinates, java.time.ZonedDateTime creationDate, long area, Integer numberOfRooms, boolean centralHeating, View view, Transport transport, House house) {
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
@@ -28,7 +28,7 @@ public class Flat implements Comparable<Flat> {
         this.view = view;
         this.transport = transport;
         this.house = house;
-        this.creationDate = java.time.ZonedDateTime.now();
+        this.creationDate = creationDate;
     }
 
     @Override

@@ -22,11 +22,13 @@ public class InfoCommand implements Command {
         System.out.println("Информация о коллекции: ");
         System.out.println("тип хранимых объектов: " + collection.getType());
         System.out.println("количество элементов: " + collection.getSize());
+        System.out.println("файл, связанный с коллекцией: " + collection.getFileName());
         try {
-            System.out.println("дата инициализации: " + collection.getCreationDate());
+            System.out.println("дата и время инициализации: " + collection.getCreationDate());
         } catch (IOException e) {
             System.out.println("Файла, связанного с коллекцией не существует. Проверьте его наличие и попробуйте ещё раз.");
         }
+        System.out.println("дата и время последнего сохранения в файл: " + collection.getSaveTime());
     }
 
     @Override

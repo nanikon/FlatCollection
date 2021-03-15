@@ -43,6 +43,9 @@ public class ArgParser {
                     try {
                         line = scr.nextLine().trim();
                     } catch (NoSuchElementException e) {
+                        if (isConsole) {
+                            System.exit(0);
+                        }
                         System.out.println("Скрипт закончился некорректно");
                         return;
                     }
@@ -93,6 +96,9 @@ public class ArgParser {
                         throw new ScriptException("Ошибка в скрипте!" + e.getMessage());
                     }
                 } catch (NoSuchElementException e) {
+                    if (isConsole) {
+                        System.exit(0);
+                    }
                     System.out.println("Скрипт закончился некорректно");
                     return;
                 }
@@ -136,6 +142,9 @@ public class ArgParser {
                     throw new ScriptException("В скрипте обнаружена ошибка! " + e.getMessage());
                 }
             } catch (NoSuchElementException ex) {
+                if (isConsole) {
+                    System.exit(0);
+                }
                 System.out.println("Скрипт закончился некорректно");
                 return;
             }

@@ -29,7 +29,7 @@ public class UpdateCommand implements Command {
             FlatBuilder oldBuilder = ((FlatArg) params[1]).getBuilder();
             FlatBuilder newBuilder = new FlatBuilder();
             HashSet<String> newFields = oldBuilder.getChange();
-            newBuilder.setId(oldFlat.getId());
+            newBuilder.setId(String.valueOf(oldFlat.getId()));
             newBuilder.setCreationDate(oldFlat.getCreationDate());
             newBuilder.setName(newFields.contains("name") ? oldBuilder.getName() : oldFlat.getName());
             newBuilder.setX(newFields.contains("x") ? String.valueOf(oldBuilder.getX()) : String.valueOf(oldFlat.getX()));

@@ -1,9 +1,11 @@
 package ru.nanikon.FlatCollection.utility;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import ru.nanikon.FlatCollection.data.Flat;
-import ru.nanikon.FlatCollection.data.FlatBuilder;
 import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
 
 import java.io.*;
@@ -27,6 +29,8 @@ public class JsonLinkedListParser {
         type = new TypeToken<LinkedList<Flat>>(){}.getType();
     }
 
+    public String getPath() {return path;}
+
     public void write(LinkedList<Flat> data) throws IOException {
         Gson gson = new Gson();
         String json = gson.toJson(data);
@@ -46,37 +50,22 @@ public class JsonLinkedListParser {
         } catch (IOException e) {
             throw new IOException("Не удается найти или прочитать файл", e);
         }
-        Gson gson = new Gson();
-        LinkedList<Flat> template = gson.fromJson(json.toString(), type);
-        LinkedList<Flat> result = new LinkedList<Flat>();
-        FlatBuilder builder = new FlatBuilder();
-        int i = 1;
-        for (Flat flat : template) {
-            try {
-                builder.reset();
-                builder.setId(flat.getId());
-                builder.setName(flat.getName());
-                builder.setX(String.valueOf(flat.getX()));
-                builder.setY(String.valueOf(flat.getY()));
-                builder.setArea(String.valueOf(flat.getArea()));
-                builder.setNumberOfRooms(String.valueOf(flat.getNumberOfRooms()));
-                String heating = flat.isCentralHeating() ? "+" : "-";
-                builder.setCentralHeating(heating);
-                builder.setView(flat.getView().name());
-                builder.setTransport(flat.getTransport().name());
-                builder.setHouseName(flat.getHouseName());
-                builder.setYear(String.valueOf(flat.getYear()));
-                builder.setNumberOfFloors(String.valueOf(flat.getNumberOfFloors()));
-                result.add(builder.getResult());
-            } catch (Exception e) {
-                throw new FileCollectionException("В файле содержится ошибка в объекте №" + i + ": " + e.getMessage());
-            }
-            i++;
+        Gson gson = new GsonBuilder().registerTypeAdapter(Flat.class, new FlatJsonConverter()).registerTypeAdapter(type, new ListJsonConverter()).create();
+        try {
+            LinkedList<Flat> result = gson.fromJson(String.valueOf(json), type);
+            return result;
+        } catch (JsonSyntaxException e) {
+            throw new FileCollectionException("В файле не найдены объекты коллекции и/или объекты, являющиеся их частью, или же сам файл некорректен");
+        } catch (Exception e) {
+            throw new FileCollectionException("В файле содержится ошибка: " + e.getMessage());
         }
-        return result;
     }
 
     public FileTime getCreationDate() throws IOException {
         return Files.readAttributes(new File(path).toPath(), BasicFileAttributes.class).creationTime();
+    }
+
+    public FileTime getSaveTime() throws IOException {
+        return Files.readAttributes(new File(path).toPath(), BasicFileAttributes.class).lastModifiedTime();
     }
 }

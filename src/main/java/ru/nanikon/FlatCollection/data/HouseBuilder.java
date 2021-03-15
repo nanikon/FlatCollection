@@ -29,14 +29,14 @@ public class HouseBuilder {
        try {
            Long result = Long.valueOf(year);
            if (result <= 0) {
-               throw new NotPositiveNumberException("Год основания дома должен быть целым числом больше нуля!");
+               throw new NotPositiveNumberException("Год основания дома должен быть целым числом больше нуля");
            }
            this.year = result;
        } catch (NumberFormatException e) {
            if (year.equals("")){
                this.year = null;
            } else {
-               throw e;
+               throw new NumberFormatException("Поле год основания дома должно быть целым числом");
            }
        }
    }
@@ -45,7 +45,7 @@ public class HouseBuilder {
        try {
            Integer result = Integer.valueOf(numberOfFloors);
            if (result <= 0) {
-               throw new NotPositiveNumberException("Число квартир в доме должно быть целым числом больше нуля!");
+               throw new NotPositiveNumberException("Число квартир в доме должно быть целым числом больше нуля");
            }
            this.numberOfFloors = result;
        } catch (NumberFormatException e) {
