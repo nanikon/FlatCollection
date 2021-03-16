@@ -11,13 +11,20 @@ public class HouseBuilder {
     private Long year; //Поле может быть null, Значение поля должно быть больше 0
     private Integer numberOfFloors; //Поле может быть null, Значение поля должно быть больше 0
 
+    /**
+     * sets default fields values
+     */
     public void reset() {
         name = null;
         year = null;
         numberOfFloors = null;
     }
 
-   public void setName(String name) {
+    /**
+     * name = null if value == "" else name = value
+     * @param name value read from file or console
+     */
+    public void setName(String name) {
         if (name.equals("")) {
             this.name = null;
         } else {
@@ -25,7 +32,12 @@ public class HouseBuilder {
         }
    }
 
-   public void setYear(String year) throws NotPositiveNumberException {
+    /**
+     * Checks that value is a natural number or value is empty
+     * @param year value read from file or console
+     * @throws NotPositiveNumberException called if value < 0
+     */
+    public void setYear(String year) throws NotPositiveNumberException {
        try {
            Long result = Long.valueOf(year);
            if (result <= 0) {
@@ -41,7 +53,12 @@ public class HouseBuilder {
        }
    }
 
-   public void setNumberOfFloors(String numberOfFloors) throws NotPositiveNumberException {
+    /**
+     * Checks that value is a natural number or value is empty
+     * @param numberOfFloors value read from file or console
+     * @throws NotPositiveNumberException called if value < 0
+     */
+    public void setNumberOfFloors(String numberOfFloors) throws NotPositiveNumberException {
        try {
            Integer result = Integer.valueOf(numberOfFloors);
            if (result <= 0) {
@@ -57,18 +74,30 @@ public class HouseBuilder {
        }
    }
 
-   public House getResult() {
+    /**
+     * @return Flat with set values
+     */
+    public House getResult() {
         return new House(this.name, this.year, this.numberOfFloors);
    }
 
+    /**
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return year
+     */
     public Long getYear() {
         return year;
     }
 
+    /**
+     * @return numberOf Floors
+     */
     public Integer getNumberOfFloors() {
         return numberOfFloors;
     }

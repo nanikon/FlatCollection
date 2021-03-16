@@ -19,6 +19,10 @@ public class AddCommand implements Command {
         this.collection = collection;
     }
 
+    /**
+     * running the command
+     * @param params - params of Command
+     */
     @Override
     public void execute(AbstractArgument<?>[] params) {
         FlatBuilder builder = ((FlatArg) params[0]).getBuilder();
@@ -31,6 +35,9 @@ public class AddCommand implements Command {
         collection.addLast(flat);
     }
 
+    /**
+     * @return - returns the list of arguments required for the command to work, which must be obtained from the user
+     */
     @Override
     public AbstractArgument<?>[] getArgs() {
         return params;

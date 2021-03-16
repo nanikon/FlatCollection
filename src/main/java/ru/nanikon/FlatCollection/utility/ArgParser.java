@@ -108,7 +108,7 @@ public class ArgParser {
     }
 
     /**
-     *
+     * Parses arguments written in the same line as the command
      * @param arg - parses the pim argument, which is entered on the same line as the command. You do not need to ask again in the parser, because in case of incorrect input, you need to re-type the command, so the errors are thrown further
      * @param line - arg as String
      * @throws IOException - called if in execute_script command file isn't found
@@ -118,7 +118,7 @@ public class ArgParser {
     }
 
     /**
-     *
+     * Parses the enumeration. On the first attempt, it is assumed that its value is entered in the same line as the command. In case of an error, it outputs the variants of the enumeration values and waits for the input in a new line.
      * @param arg - the argument corresponding to the enumeration
      * @param value - the value read after the command
      * @param scr - whether we are currently working in interactive mode. If with a file - false
@@ -151,6 +151,10 @@ public class ArgParser {
         } while (!right);
     }
 
+    /**
+     * Handles the situation when the user needs the answer Yes/No in the form of +/-
+     * @return true/false
+     */
     public static boolean parseYesNot() {
         do {
             System.out.print(Main.PS2);

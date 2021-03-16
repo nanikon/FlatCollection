@@ -14,7 +14,7 @@ import java.util.Stack;
 /**
  * Executes a script in which the commands are written in the same form as they are entered in interactive mode
  */
-public class ExecuteCommand implements Command{
+public class ExecuteCommand implements Command {
     Stack<Path> pathStack;
     Stack<Scanner> scannerStack;
     private final AbstractArgument<?>[] params = {new FileArg()};
@@ -25,6 +25,10 @@ public class ExecuteCommand implements Command{
         this.pathStack = pathStack;
     }
 
+    /**
+     * running the command
+     * @param params - params of Command
+     */
     @Override
     public void execute(AbstractArgument<?>[] params) {
         String fileName = ((FileArg) params[0]).getValue();
@@ -34,6 +38,9 @@ public class ExecuteCommand implements Command{
         while (enu.hasMoreElements()) {
             if (enu.nextElement().equals(file.toPath())) {
                 entry++;
+                if (entry == 2) {
+                    break;
+                }
             }
         }
         if (entry == 1) {
@@ -51,11 +58,17 @@ public class ExecuteCommand implements Command{
         }
     }
 
+    /**
+     * @return - returns the help for the command. For help command
+     */
     @Override
     public String getInformation() {
         return information;
     }
 
+    /**
+     * @return - returns the list of arguments required for the command to work, which must be obtained from the user
+     */
     @Override
     public AbstractArgument<?>[] getArgs() {
         return params;

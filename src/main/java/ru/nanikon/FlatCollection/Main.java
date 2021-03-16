@@ -1,7 +1,7 @@
 package ru.nanikon.FlatCollection;
 
 import ru.nanikon.FlatCollection.arguments.*;
-import ru.nanikon.FlatCollection.commands.*;
+import ru.nanikon.FlatCollection.commands.ExecuteCommand;
 import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
 import ru.nanikon.FlatCollection.exceptions.ScriptException;
 import ru.nanikon.FlatCollection.utility.ArgParser;
@@ -30,7 +30,7 @@ public class Main {
             System.exit(-1);
         }
         JsonLinkedListParser parser = new JsonLinkedListParser(args[0]);
-        //JsonLinkedListParser parser = new JsonLinkedListParser("exsample.json");
+        // JsonLinkedListParser parser = new JsonLinkedListParser("empty.json");
         CollectionManager collectionManager = null;
         try {
             collectionManager = new CollectionManager(parser);
@@ -41,23 +41,23 @@ public class Main {
         Stack<Scanner> scannerStack = new Stack<>();
         Stack<Path> pathStack = new Stack<>();
         Deque<String> history = new ArrayDeque<>();
-        HashMap<String, Command> commands = new HashMap<>();
-        commands.put("history", new HistoryCommand(history));
-        commands.put("info", new InfoCommand(collectionManager));
-        commands.put("show", new ShowCommand(collectionManager));
-        commands.put("add", new AddCommand(collectionManager));
-        commands.put("update", new UpdateCommand(collectionManager));
-        commands.put("remove_by_id", new RemoveCommand(collectionManager));
-        commands.put("clear", new ClearCommand(collectionManager));
-        commands.put("save", new SaveCommand(collectionManager));
-        commands.put("exit", new ExitCommand(scannerStack, pathStack));
-        commands.put("insert_at", new InsertCommand(collectionManager));
-        commands.put("sort", new SortCommand(collectionManager));
-        commands.put("remove_any_by_transport", new RemoveAnyByTransportCommand(collectionManager));
-        commands.put("average_of_number_of_rooms", new AverageOfNumberOfRoomsCommand(collectionManager));
-        commands.put("filter_less_than_view", new FilterLessThanViewCommand(collectionManager));
+        HashMap<String, ru.nanikon.FlatCollection.commands.Command> commands = new HashMap<>();
+        commands.put("history", new ru.nanikon.FlatCollection.commands.HistoryCommand(history));
+        commands.put("info", new ru.nanikon.FlatCollection.commands.InfoCommand(collectionManager));
+        commands.put("show", new ru.nanikon.FlatCollection.commands.ShowCommand(collectionManager));
+        commands.put("add", new ru.nanikon.FlatCollection.commands.AddCommand(collectionManager));
+        commands.put("update", new ru.nanikon.FlatCollection.commands.UpdateCommand(collectionManager));
+        commands.put("remove_by_id", new ru.nanikon.FlatCollection.commands.RemoveCommand(collectionManager));
+        commands.put("clear", new ru.nanikon.FlatCollection.commands.ClearCommand(collectionManager));
+        commands.put("save", new ru.nanikon.FlatCollection.commands.SaveCommand(collectionManager));
+        commands.put("exit", new ru.nanikon.FlatCollection.commands.ExitCommand(scannerStack, pathStack));
+        commands.put("insert_at", new ru.nanikon.FlatCollection.commands.InsertCommand(collectionManager));
+        commands.put("sort", new ru.nanikon.FlatCollection.commands.SortCommand(collectionManager));
+        commands.put("remove_any_by_transport", new ru.nanikon.FlatCollection.commands.RemoveAnyByTransportCommand(collectionManager));
+        commands.put("average_of_number_of_rooms", new ru.nanikon.FlatCollection.commands.AverageOfNumberOfRoomsCommand(collectionManager));
+        commands.put("filter_less_than_view", new ru.nanikon.FlatCollection.commands.FilterLessThanViewCommand(collectionManager));
         commands.put("execute_script", new ExecuteCommand(scannerStack, pathStack));
-        commands.put("help", new HelpCommand(commands));
+        commands.put("help", new ru.nanikon.FlatCollection.commands.HelpCommand(commands));
         Scanner scr = new Scanner(System.in);
         offer:
         while (true) {
@@ -69,7 +69,7 @@ public class Main {
             int i = 1;
             try {
                 if (commands.containsKey(nameCommand)) {
-                    Command command = commands.get(nameCommand);
+                    ru.nanikon.FlatCollection.commands.Command command = commands.get(nameCommand);
                     AbstractArgument<?>[] listArg = command.getArgs();
                     for (AbstractArgument arg : listArg) {
                         if (arg.isObject()) {

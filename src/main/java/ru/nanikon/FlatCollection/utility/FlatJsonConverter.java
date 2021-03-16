@@ -3,16 +3,24 @@ package ru.nanikon.FlatCollection.utility;
 import com.google.gson.*;
 import ru.nanikon.FlatCollection.data.Flat;
 import ru.nanikon.FlatCollection.data.FlatBuilder;
-import ru.nanikon.FlatCollection.exceptions.BooleanInputException;
-import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
-import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * Auxiliary configuration class for deserializing from json to Flat
+ */
 public class FlatJsonConverter implements JsonDeserializer<Flat> {
+    /**
+     * Deserializes JsonElement to Flat. Called automatically in the fromjson method, if the object is one, and can be called in Collection or another Object deserializing in JsonDeserializationContext(JsonElement this, Flat.class)
+     * @param jsonElement deserializable element
+     * @param type result type
+     * @param jsonDeserializationContext calls deserializers for other classes. Has a method .deserialize(JsonElement json, Type type)
+     * @return Flat
+     * @throws JsonParseException called if if there is any error in the data and it cannot be converted to the required type
+     */
     @Override
     public Flat deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonObject = jsonElement.getAsJsonObject();

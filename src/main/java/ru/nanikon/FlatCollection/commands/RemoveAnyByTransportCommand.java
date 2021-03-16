@@ -8,7 +8,7 @@ import ru.nanikon.FlatCollection.utility.CollectionManager;
 /**
  * remove one element from the collection whose transport field value is equivalent to the specified one
  */
-public class RemoveAnyByTransportCommand implements Command{
+public class RemoveAnyByTransportCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {new TransportArg()};
     private String information = "'remove_any_by_transport transport' - удалить из коллекции один элемент, значение поля transport которого эквивалентно заданному";
@@ -17,17 +17,27 @@ public class RemoveAnyByTransportCommand implements Command{
         this.collection = collection;
     }
 
+    /**
+     * running the command
+     * @param params - params of Command
+     */
     @Override
     public void execute(AbstractArgument<?>[] params) {
         Transport transport = ((TransportArg) params[0]).getValue();
         collection.removeByTransport(transport);
     }
 
+    /**
+     * @return - returns the list of arguments required for the command to work, which must be obtained from the user
+     */
     @Override
     public AbstractArgument<?>[] getArgs() {
         return params;
     }
 
+    /**
+     * @return - returns the help for the command. For help command
+     */
     @Override
     public String getInformation() {
         return information;

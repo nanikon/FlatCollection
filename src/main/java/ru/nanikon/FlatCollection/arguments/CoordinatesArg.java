@@ -14,14 +14,24 @@ public class CoordinatesArg extends ObjectArgument<Coordinates> {
         params.put(new String[]{" 3", "координата y", "Это должно быть целое или вещественное число с точкой в виде десятичной дроби"}, builder::setY);
     }
 
+    /**
+     * Sets the argument value as the result of the builder
+     * @param value not required in this implementation
+     */
     public void setValue(String value) {
          this.value = builder.getResult();
     }
 
+    /**
+     * @return The builder of this object argument
+     */
     public CoordinatesBuilder getBuilder() {
         return builder;
     }
 
+    /**
+     * Clear builder and value
+     */
     public void clear() {
         builder.reset();
         value = null;

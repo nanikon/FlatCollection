@@ -7,6 +7,10 @@ public class CoordinatesBuilder {
     private double x;
     private Double y;
 
+    /**
+     * Checks that value if Float
+     * @param x value read from file or console
+     */
     public void setX(String x) {
         try {
             this.x = Double.parseDouble(x);
@@ -19,6 +23,10 @@ public class CoordinatesBuilder {
         }
     }
 
+    /**
+     * Checks that value if Float
+     * @param y value read from file or console
+     */
     public void setY(String y) {
         try {
             this.y = Double.valueOf(y);
@@ -31,19 +39,31 @@ public class CoordinatesBuilder {
         }
     }
 
+    /**
+     * @return Coordinates with set values
+     */
     public Coordinates getResult() {
         return new Coordinates(x, y);
     }
 
+    /**
+     * sets default fields values
+     */
     public void reset() {
         x = 0;
         y = null;
     }
 
+    /**
+     * @return x
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * @return y
+     */
     public Double getY() {
         return y;
     }

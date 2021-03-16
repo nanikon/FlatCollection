@@ -17,6 +17,10 @@ public class InfoCommand implements Command {
         this.collection = collection;
     }
 
+    /**
+     * running the command
+     * @param params - params of Command
+     */
     @Override
     public void execute(AbstractArgument<?>[] params) {
         System.out.println("Информация о коллекции: ");
@@ -31,11 +35,17 @@ public class InfoCommand implements Command {
         System.out.println("дата и время последнего сохранения в файл: " + collection.getSaveTime());
     }
 
+    /**
+     * @return - returns the list of arguments required for the command to work, which must be obtained from the user
+     */
     @Override
     public AbstractArgument<?>[] getArgs() {
         return params;
     }
 
+    /**
+     * @return - returns the help for the command. For help command
+     */
     @Override
     public String getInformation() {
         return information;

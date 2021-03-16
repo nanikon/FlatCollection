@@ -5,14 +5,22 @@ import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
 /**
- *
+ * Checks that the entered value is a natural number and that an element with this id is in the collection
  */
 public class IdArg extends AbstractArgument<Integer> {
     private CollectionManager collection;
 
+    /**
+     * @param collection Collection with which the program works
+     */
     public void setCollection(CollectionManager collection) {
         this.collection = collection;
     }
+
+    /**
+     * Checks the entered argument
+     * @param value a file read or from the console a line with an argument value
+     */
     @Override
     public void setValue(String value) {
         try {

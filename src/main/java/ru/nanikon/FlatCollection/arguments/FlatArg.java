@@ -25,16 +25,26 @@ public class FlatArg extends ObjectArgument<Flat> {
         params.put(new String[]{"10", "год строительтсва дома", "Это должно быть целое число больше нуля и не превышающее " + Long.MAX_VALUE + "или пустая строка"}, builder::setYear);
         params.put(new String[]{"11", "количество квартир в доме", "Это должно быть целое число больше нуля, не превышающее " + Integer.MAX_VALUE + " или пустая строка"}, builder::setNumberOfFloors);
     }
+    /**
+     * Sets the argument value as the result of the builder
+     * @param value not required in this implementation
+     */
     @Override
     public void setValue(String value) {
         this.value = builder.getResult();
     }
 
+    /**
+     * Clear builder and value
+     */
     @Override
     public void clear() {
         builder.reset();
         value = null;
     }
 
+    /**
+     * @return The builder of this object argument
+     */
     public FlatBuilder getBuilder() { return builder; }
 }

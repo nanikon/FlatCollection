@@ -9,7 +9,6 @@ import ru.nanikon.FlatCollection.exceptions.BooleanInputException;
 import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
 
-import java.lang.reflect.Field;
 import java.util.HashSet;
 
 public class UpdateCommand implements Command {
@@ -21,6 +20,11 @@ public class UpdateCommand implements Command {
         this.collection = collection;
         ((IdArg) params[0]).setCollection(collection);
     }
+
+    /**
+     * running the command
+     * @param params - params of Command
+     */
     @Override
     public void execute(AbstractArgument<?>[] params) {
         try {
@@ -51,11 +55,17 @@ public class UpdateCommand implements Command {
         }
     }
 
+    /**
+     * @return - returns the list of arguments required for the command to work, which must be obtained from the user
+     */
     @Override
     public AbstractArgument<?>[] getArgs() {
         return params;
     }
 
+    /**
+     * @return - returns the help for the command. For help command
+     */
     @Override
     public String getInformation() {
         return information;

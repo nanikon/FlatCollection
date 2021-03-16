@@ -6,6 +6,10 @@ import ru.nanikon.FlatCollection.data.Transport;
  * Matches the Transport enum and checks that the entered value is one of the constants
  */
 public class TransportArg extends EnumArgument<Transport> {
+    /**
+     * Checks the entered argument and arranges additional work if necessary
+     * @param value a file read or from the console a line with an argument value
+     */
     @Override
     public void setValue(String value) {
         try {
@@ -17,6 +21,9 @@ public class TransportArg extends EnumArgument<Transport> {
         }
     }
 
+    /**
+     * @return Enum values
+     */
     @Override
     public String getConstants() {
         StringBuilder result = new StringBuilder();

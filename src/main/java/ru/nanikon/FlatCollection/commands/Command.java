@@ -13,13 +13,11 @@ public interface Command {
     void execute(AbstractArgument<?>[] params);
 
     /**
-     *
      * @return - returns the help for the command. For help command
      */
     String getInformation();
 
     /**
-     *
      * @return - returns the list of arguments required for the command to work, which must be obtained from the user
      */
     AbstractArgument<?>[] getArgs();

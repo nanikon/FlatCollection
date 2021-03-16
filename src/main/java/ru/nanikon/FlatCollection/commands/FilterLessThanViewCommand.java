@@ -17,6 +17,10 @@ public class FilterLessThanViewCommand implements Command {
         this.collection = collection;
     }
 
+    /**
+     * running the command
+     * @param params - params of Command
+     */
     @Override
     public void execute(AbstractArgument<?>[] params) {
         View view = ((ViewArg) params[0]).getValue();
@@ -24,11 +28,17 @@ public class FilterLessThanViewCommand implements Command {
         System.out.println(collection.viewFilteredInfo(view));
     }
 
+    /**
+     * @return - returns the list of arguments required for the command to work, which must be obtained from the user
+     */
     @Override
     public AbstractArgument<?>[] getArgs() {
         return params;
     }
 
+    /**
+     * @return - returns the help for the command. For help command
+     */
     @Override
     public String getInformation() {
         return information;

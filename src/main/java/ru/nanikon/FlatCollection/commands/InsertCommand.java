@@ -11,7 +11,7 @@ import ru.nanikon.FlatCollection.utility.CollectionManager;
 /**
  * добавить новый элемент в заданную позицию
  */
-public class InsertCommand implements Command{
+public class InsertCommand implements Command {
     private CollectionManager collection;
     private AbstractArgument<?>[] params = {new IdArg(), new FlatArg()};
     private String information = "'insert_at index {element}' - добавить новый элемент в заданную позицию";
@@ -20,6 +20,11 @@ public class InsertCommand implements Command{
         this.collection = collection;
         ((IdArg) params[0]).setCollection(collection);
     }
+
+    /**
+     * running the command
+     * @param params - params of Command
+     */
     @Override
     public void execute(AbstractArgument<?>[] params) {
         int id = ((IdArg) params[0]).getValue();
@@ -33,11 +38,17 @@ public class InsertCommand implements Command{
         collection.addById(flat, id);
     }
 
+    /**
+     * @return - returns the list of arguments required for the command to work, which must be obtained from the user
+     */
     @Override
     public AbstractArgument<?>[] getArgs() {
         return params;
     }
 
+    /**
+     * @return - returns the help for the command. For help command
+     */
     @Override
     public String getInformation() {
         return information;

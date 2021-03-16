@@ -5,9 +5,15 @@ import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
 
 /**
  * Like standart Consumer<T> but its accept method can throw exceptions
- * @param <T>
+ * @param <T> type of argument value
  */
 @FunctionalInterface
 public interface ThrowConsumer<T> {
+    /**
+     * takes a value and returns nothing
+     * @param value accepted value
+     * @throws NotPositiveNumberException
+     * @throws BooleanInputException
+     */
     void accept (T value) throws NotPositiveNumberException, BooleanInputException;
 }
