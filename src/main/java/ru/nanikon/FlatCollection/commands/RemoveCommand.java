@@ -22,9 +22,10 @@ public class RemoveCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
-        int id = ((IdArg) params[0]).getValue();
+    public String execute(AbstractArgument<?>[] params) {
+        int id = ((IdArg) params[0]).getValue() - 1;
         collection.removeById(id);
+        return "Успешно удален элемент с id " + id + "\nКоллекция:\n" + collection.toLongString();
     }
 
     /**

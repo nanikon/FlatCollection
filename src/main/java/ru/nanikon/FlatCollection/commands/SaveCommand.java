@@ -22,11 +22,12 @@ public class SaveCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         try {
             collection.saveCollection();
+            return "Коллекция успешно сохранена";
         } catch (IOException e) {
-            System.out.println("Невозможно открыть на запись файл, к которому привязана коллекция. проверьте его и попробуйте ещё раз");
+            return "Невозможно открыть на запись файл, к которому привязана коллекция. проверьте его и попробуйте ещё раз";
         }
     }
 

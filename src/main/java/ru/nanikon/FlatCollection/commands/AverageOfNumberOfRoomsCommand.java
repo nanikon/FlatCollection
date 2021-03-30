@@ -21,8 +21,8 @@ public class AverageOfNumberOfRoomsCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
-        System.out.println("Среднее значение поля количество комнат по всем квартирам коллекции: " + collection.getAverageNumberOfRooms());
+    public String execute(AbstractArgument<?>[] params) {
+        return "Среднее значение поля количество комнат по всем квартирам коллекции: " + collection.getAverageNumberOfRooms();
     }
 
     /**

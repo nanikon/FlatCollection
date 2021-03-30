@@ -136,7 +136,7 @@ public class CollectionManager {
      * Remove first flat which transport field is equal to the specified one
      * @param transport A transport to remove
      */
-    public void removeByTransport(Transport transport) {
+    public String removeByTransport(Transport transport) {
         int id = -1;
         for (Flat flat : flatsCollection) {
             if (flat.getTransport().equals(transport)) {
@@ -145,9 +145,11 @@ public class CollectionManager {
             }
         }
         if (id == -1) {
-            System.out.println("Не найдено квартир, у которых значение поля транспорт равно " + transport);
+            return "Не найдено квартир, у которых значение поля транспорт равно " + transport;
         } else {
-            flatsCollection.remove(id);
+            String result = getById(id).toLongString();
+            flatsCollection.remove(id - 1);
+            return "Успешно удален элемент {" + result + "}";
         }
     }
 
@@ -202,13 +204,17 @@ public class CollectionManager {
         for (Flat flat: flatsCollection) {
             info.append(flat.toLongString()).append("\n");
         }
-        return info.toString().trim();
+        String result = info.toString().trim();
+        return result;
     }
 
     /**
      * @return Integer average value for the entire collection
      */
     public int getAverageNumberOfRooms() {
+        if (getSize() == 0) {
+            return 0;
+        }
         long result = 0;
         for (Flat flat : flatsCollection) {
             result += flat.getNumberOfRooms();

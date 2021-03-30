@@ -20,19 +20,22 @@ public class InfoCommand implements Command {
     /**
      * running the command
      * @param params - params of Command
+     * @return
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
-        System.out.println("Информация о коллекции: ");
-        System.out.println("тип хранимых объектов: " + collection.getType());
-        System.out.println("количество элементов: " + collection.getSize());
-        System.out.println("файл, связанный с коллекцией: " + collection.getFileName());
+    public String execute(AbstractArgument<?>[] params) {
+        StringBuilder result = new StringBuilder();
+        result.append("Информация о коллекции: ").append("\n");
+        result.append("тип хранимых объектов: ").append(collection.getType()).append("\n");
+        result.append("количество элементов: ").append(collection.getSize()).append("\n");
+        result.append("файл, связанный с коллекцией: ").append(collection.getFileName()).append("\n");
         try {
-            System.out.println("дата и время инициализации: " + collection.getCreationDate());
+            result.append("дата и время инициализации: ").append(collection.getCreationDate()).append("\n");
         } catch (IOException e) {
-            System.out.println("Файла, связанного с коллекцией не существует. Проверьте его наличие и попробуйте ещё раз.");
+            result.append("Файла, связанного с коллекцией не существует. Проверьте его наличие и попробуйте ещё раз.").append("\n");
         }
-        System.out.println("дата и время последнего сохранения в файл: " + collection.getSaveTime());
+        result.append("дата и время последнего сохранения в файл: ").append(collection.getSaveTime());
+        return result.toString();
     }
 
     /**

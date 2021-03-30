@@ -26,16 +26,17 @@ public class InsertCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         int id = ((IdArg) params[0]).getValue();
-        FlatBuilder builder = ((FlatArg) params[0]).getBuilder();
+        FlatBuilder builder = ((FlatArg) params[1]).getBuilder();
         try {
             builder.setId(String.valueOf(collection.generateNextId()));
         } catch (NotPositiveNumberException e) {
-            e.printStackTrace();
+            System.out.println("Этой ошибки быть не должно, так как id генерируется автоматически");
         }
         Flat flat = builder.getResult();
-        collection.addById(flat, id);
+        collection.addById(flat, id - 1);
+        return "В коллекцию успешно добавлен элемент {" + flat.toLongString() + "}";
     }
 
     /**

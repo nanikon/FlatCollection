@@ -20,8 +20,15 @@ public class SortCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         collection.sortCollection();
+        String result = collection.toLongString();
+        if (result.equals("")) {
+            result = "Коллекция пуста, и сортировать нечего...";
+        } else {
+            result = "Коллекция успешно отсортированна:\n" + result;
+        }
+        return result;
     }
 
     /**

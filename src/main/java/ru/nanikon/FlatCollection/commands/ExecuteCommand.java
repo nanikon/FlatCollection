@@ -30,7 +30,7 @@ public class ExecuteCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         String fileName = ((FileArg) params[0]).getValue();
         File file = new File(fileName);
         Enumeration<Path> enu = pathStack.elements();
@@ -47,15 +47,16 @@ public class ExecuteCommand implements Command {
             System.out.println("Обнаружен рекурсивный вызов файла " + fileName + ". Введите +, если желаете продолжить рекурсию, но тогда приложение может упасть. Введите -, если хотите пропустить эту команду и продолжить дальше выполнение скрипта.");
             boolean answer = ArgParser.parseYesNot();
             if (!answer) {
-                return;
+                return "Команда вызова скрипта пропущена, скрипт выполняется дальше";
             }
         }
         pathStack.push(file.toPath());
         try {
-            scannerStack.push(new Scanner(file));
+            scannerStack.push(new Scanner(file, "UTF-8"));
         } catch (FileNotFoundException e) {
-            System.out.println("Этой ошибки быть не должно");
+            return "Исполняемый файл не найден";
         }
+        return "начинается выполнение файла " + fileName;
     }
 
     /**

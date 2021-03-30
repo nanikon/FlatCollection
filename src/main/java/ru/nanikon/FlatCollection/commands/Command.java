@@ -10,7 +10,7 @@ public interface Command {
      * running the command
      * @param params - params of Command
      */
-    void execute(AbstractArgument<?>[] params);
+    String execute(AbstractArgument<?>[] params);
 
     /**
      * @return - returns the help for the command. For help command

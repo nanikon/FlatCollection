@@ -3,6 +3,7 @@ package ru.nanikon.FlatCollection;
 import ru.nanikon.FlatCollection.arguments.*;
 import ru.nanikon.FlatCollection.commands.ExecuteCommand;
 import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
+import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
 import ru.nanikon.FlatCollection.exceptions.ScriptException;
 import ru.nanikon.FlatCollection.utility.ArgParser;
 import ru.nanikon.FlatCollection.utility.CollectionManager;
@@ -19,7 +20,7 @@ import java.util.*;
 
 public class Main {
     public static String PS1 = "$";
-    public static String PS2 = ">";
+    public static String PS2 = "> ";
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -30,7 +31,7 @@ public class Main {
             System.exit(-1);
         }
         JsonLinkedListParser parser = new JsonLinkedListParser(args[0]);
-        // JsonLinkedListParser parser = new JsonLinkedListParser("empty.json");
+        //JsonLinkedListParser parser = new JsonLinkedListParser("empty.json");
         CollectionManager collectionManager = null;
         try {
             collectionManager = new CollectionManager(parser);
@@ -58,13 +59,19 @@ public class Main {
         commands.put("filter_less_than_view", new ru.nanikon.FlatCollection.commands.FilterLessThanViewCommand(collectionManager));
         commands.put("execute_script", new ExecuteCommand(scannerStack, pathStack));
         commands.put("help", new ru.nanikon.FlatCollection.commands.HelpCommand(commands));
-        Scanner scr = new Scanner(System.in);
+        Scanner scr = new Scanner(System.in, "UTF-8");
         offer:
         while (true) {
             if (pathStack.isEmpty()) {
                 System.out.print(PS1);
             }
-            String[] line = scr.nextLine().trim().split("[ \t\f]+");
+            String[] line = new String[0];
+            try {
+                line = scr.nextLine().trim().split("[ \t\f]+");
+            } catch (NoSuchElementException e) {
+                System.out.println("Вы завершили выполнение программы");
+                System.exit(0);
+            }
             String nameCommand = line[0];
             int i = 1;
             try {
@@ -82,7 +89,15 @@ public class Main {
                             }
                             ArgParser.parseObject((ObjectArgument<?>) arg, scr, pathStack.isEmpty(), nameCommand.equals("update"));
                         } else if (arg.isEnum()) {
-                            ArgParser.parseEnum((EnumArgument<?>) arg, line[i++], scr, pathStack.isEmpty());
+                            try {
+                                ArgParser.parseEnum((EnumArgument<?>) arg, line[i++], scr, pathStack.isEmpty());
+                            } catch (IndexOutOfBoundsException e) {
+                                if (!pathStack.isEmpty()) {
+                                    throw new ScriptException("Ошибка в скрипте! Введены не все аргументы");
+                                }
+                                System.out.println("Вы ввели не все аргументы. Попробуйте ещё раз");
+                                continue offer;
+                            }
                         } else {
                             try {
                                 ArgParser.parseLine(arg, line[i++]);
@@ -92,7 +107,7 @@ public class Main {
                                 }
                                 System.out.println("Вы ввели не все аргументы. Попробуйте ещё раз");
                                 continue offer;
-                            } catch (IOException | NullPointerException | NumberFormatException e) {
+                            } catch (IOException | NullPointerException | NumberFormatException | NotPositiveNumberException e) {
                                 if (!pathStack.isEmpty()) {
                                     throw new ScriptException("Ошибка в скрипте! " + e.getMessage());
                                 }
@@ -112,7 +127,8 @@ public class Main {
                         }
                         history.add(nameCommand);
                         scannerStack.push(scr);
-                        command.execute(listArg);
+                        String result = command.execute(listArg);
+                        System.out.println(result);
                         scr = scannerStack.pop();
                     }
                 } else if (!nameCommand.equals("")) {

@@ -24,15 +24,16 @@ public class AddCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         FlatBuilder builder = ((FlatArg) params[0]).getBuilder();
         try {
             builder.setId(String.valueOf(collection.generateNextId()));
         } catch (NotPositiveNumberException e) {
-            e.printStackTrace();
+            System.out.println("Этой ошибки быть не должно, id генерится автоматически");
         }
         Flat flat = builder.getResult();
         collection.addLast(flat);
+        return "Элемент {" + flat.toLongString() + "} успешно добавлен в коллекцию";
     }
 
     /**

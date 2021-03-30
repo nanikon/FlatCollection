@@ -5,6 +5,7 @@ import ru.nanikon.FlatCollection.data.FlatBuilder;
 import ru.nanikon.FlatCollection.data.Transport;
 import ru.nanikon.FlatCollection.data.View;
 
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 /**
@@ -31,6 +32,7 @@ public class FlatArg extends ObjectArgument<Flat> {
      */
     @Override
     public void setValue(String value) {
+        builder.setCreationDate(ZonedDateTime.now());
         this.value = builder.getResult();
     }
 

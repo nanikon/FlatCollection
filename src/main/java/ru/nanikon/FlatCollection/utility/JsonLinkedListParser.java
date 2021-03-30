@@ -9,6 +9,7 @@ import ru.nanikon.FlatCollection.exceptions.FileCollectionException;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
@@ -45,7 +46,9 @@ public class JsonLinkedListParser {
     public void write(LinkedList<Flat> data) throws IOException {
         Gson gson = new Gson();
         String json = gson.toJson(data);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+        // BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), "UTF-8"))
+        // BufferedWriter writer = new BufferedWriter(new FileWriter(path))
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))) {
             writer.write(json);
         } catch (IOException e) {
             throw new IOException("Невозможно получить доступ к файлу", e);
@@ -60,7 +63,7 @@ public class JsonLinkedListParser {
      */
     public LinkedList<Flat> read() throws IOException, FileCollectionException {
         StringBuilder json = new StringBuilder();
-        try (Scanner scr = new Scanner(new File(path))) {
+        try (Scanner scr = new Scanner(new File(path), "UTF-8")) {
             while (scr.hasNextLine()) {
                 json.append(scr.nextLine());
             }

@@ -20,8 +20,9 @@ public class ClearCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         collection.clearCollection();
+        return "Коллекция успешно очищена";
     }
 
     /**

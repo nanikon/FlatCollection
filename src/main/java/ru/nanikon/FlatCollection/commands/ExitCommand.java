@@ -25,13 +25,16 @@ public class ExitCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         if (pathStack.isEmpty()) {
+            System.out.println("Завершение работы программы");
             System.exit(0);
+            return "";
         } else {
             Path path = pathStack.pop();
             Scanner scr = scannerStack.pop();
             scr.close();
+            return "завершена работа файла " + path.getFileName();
         }
     }
 

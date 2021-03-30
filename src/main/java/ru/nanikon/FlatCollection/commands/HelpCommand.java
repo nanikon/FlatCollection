@@ -21,11 +21,13 @@ public class HelpCommand implements ru.nanikon.FlatCollection.commands.Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
-        System.out.println("Справка по командам:");
+    public String execute(AbstractArgument<?>[] params) {
+        StringBuilder result = new StringBuilder();
+        result.append("Справка по командам:").append("\n");
         for (String nameCommand : commands.keySet()) {
-            System.out.println(commands.get(nameCommand).getInformation());
+            result.append(commands.get(nameCommand).getInformation()).append("\n");
         }
+        return result.toString().trim();
     }
 
     /**

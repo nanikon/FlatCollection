@@ -33,7 +33,7 @@ public class IdArg extends AbstractArgument<Integer> {
                 throw new NullPointerException("Элемента с таким id не найдено");
             }
             this.value = result;
-        } catch (NumberFormatException | NotPositiveNumberException e) {
+        } catch (NumberFormatException e) {
             if (value.equals("")) {
                 throw new NullPointerException("Аргумент id не найден");
             } else {

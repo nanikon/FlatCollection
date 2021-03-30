@@ -21,8 +21,11 @@ public class ShowCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
-        System.out.println(this.collection.toLongString());
+    public String execute(AbstractArgument<?>[] params) {
+        if (collection.getSize() == 0) {
+            return "Коллекция пустая";
+        }
+        return this.collection.toLongString();
     }
 
     /**

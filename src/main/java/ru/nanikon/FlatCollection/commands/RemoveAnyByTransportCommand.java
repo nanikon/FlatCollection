@@ -22,9 +22,15 @@ public class RemoveAnyByTransportCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         Transport transport = ((TransportArg) params[0]).getValue();
-        collection.removeByTransport(transport);
+        String result;
+        if (collection.getSize() == 0) {
+            result = collection.removeByTransport(transport) + " так как коллекция пустая";
+        } else {
+            result = collection.removeByTransport(transport) + "\nКоллекция:\n" + collection.toLongString();
+        }
+        return result;
     }
 
     /**

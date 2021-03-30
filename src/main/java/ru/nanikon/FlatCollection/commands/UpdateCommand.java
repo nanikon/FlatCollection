@@ -26,7 +26,7 @@ public class UpdateCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
         try {
             int id = ((IdArg) params[0]).getValue();
             Flat oldFlat = collection.getById(id);
@@ -50,8 +50,9 @@ public class UpdateCommand implements Command {
             newBuilder.setNumberOfFloors(newFields.contains("numberOfFloors") ? String.valueOf(oldBuilder.getNumberOfFloors()) : String.valueOf(oldFlat.getNumberOfFloors()));
             Flat newFlat = newBuilder.getResult();
             collection.setById(newFlat, id - 1);
+            return "Успешно обновлен элемент: {" + newFlat.toLongString() + "}";
         } catch (NotPositiveNumberException| BooleanInputException e) {
-            System.out.println("Меня не должно существовать но кря)");
+            return "ошибка во входных данных";
         }
     }
 

@@ -21,12 +21,14 @@ public class HistoryCommand implements Command {
      * @param params - params of Command
      */
     @Override
-    public void execute(AbstractArgument<?>[] params) {
+    public String execute(AbstractArgument<?>[] params) {
+        StringBuilder result = new StringBuilder();
         for (String command: history) {
             if (!(command == null)) {
-                System.out.println(command);
+                result.append(command).append("\n");
             }
         }
+        return result.toString().trim();
     }
 
     /**
