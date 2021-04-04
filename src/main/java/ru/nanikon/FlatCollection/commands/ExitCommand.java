@@ -34,7 +34,7 @@ public class ExitCommand implements Command {
             Path path = pathStack.pop();
             Scanner scr = scannerStack.pop();
             scr.close();
-            return "завершена работа файла " + path.getFileName();
+            return "Завершена работа файла " + path.getFileName();
         }
     }
 

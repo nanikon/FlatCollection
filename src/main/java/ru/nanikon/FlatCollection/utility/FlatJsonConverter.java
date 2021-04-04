@@ -49,9 +49,24 @@ public class FlatJsonConverter implements JsonDeserializer<Flat> {
             builder.setTransport(jsonObject.get("transport").getAsString());
 
             JsonObject house = jsonObject.get("house").getAsJsonObject();
-            builder.setHouseName(house.get("name").getAsString());
-            builder.setYear(house.get("year").getAsString());
-            builder.setNumberOfFloors(house.get("numberOfFloors").getAsString());
+            JsonElement name = house.get("name");
+            if (name == null) {
+                builder.setHouseName("");
+            } else {
+                builder.setHouseName(name.getAsString());
+            }
+            JsonElement year = house.get("year");
+            if (year == null) {
+                builder.setYear("");
+            } else {
+                builder.setYear(year.getAsString());
+            }
+            JsonElement numberOfFloors = house.get("numberOfFloors");
+            if (numberOfFloors == null) {
+                builder.setNumberOfFloors("");
+            } else {
+                builder.setNumberOfFloors(numberOfFloors.getAsString());
+            }
             result = builder.getResult();
         } catch (NumberFormatException e) {
             throw new JsonParseException(e.getMessage());

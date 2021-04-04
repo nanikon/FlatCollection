@@ -16,7 +16,7 @@ public class ListJsonConverter implements JsonDeserializer<LinkedList<Flat>> {
      * @param jsonElement deserializable element
      * @param type result type
      * @param jsonDeserializationContext calls deserializers for other classes. Has a method .deserialize(JsonElement json, Type type)
-     * @return LinkedList&lt;Flat&gt
+     * @return LinkedList&lt;Flat&gt;
      * @throws JsonParseException called if if there is any error in the data and it cannot be converted to the required type
      */
     @Override

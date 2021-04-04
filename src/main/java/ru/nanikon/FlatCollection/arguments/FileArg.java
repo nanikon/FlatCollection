@@ -15,8 +15,7 @@ public class FileArg extends AbstractArgument<String> {
      */
     @Override
     public void setValue(String value) throws IOException {
-        File file = new File(value);
-        try (Scanner scr = new Scanner(file)) {
+        try (Scanner scr = new Scanner(new File(value))) {
             this.value = value;
         } catch (IOException e) {
             throw new IOException("Файл с таким именем не удается найти или прочитать. Проверьте его и попробуйте ещё раз");

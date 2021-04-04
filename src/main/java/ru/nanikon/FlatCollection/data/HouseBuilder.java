@@ -35,7 +35,7 @@ public class HouseBuilder {
     /**
      * Checks that value is a natural number or value is empty
      * @param year value read from file or console
-     * @throws NotPositiveNumberException called if value < 0
+     * @throws NotPositiveNumberException called if value &lt; 0
      */
     public void setYear(String year) throws NotPositiveNumberException {
        try {
@@ -56,7 +56,7 @@ public class HouseBuilder {
     /**
      * Checks that value is a natural number or value is empty
      * @param numberOfFloors value read from file or console
-     * @throws NotPositiveNumberException called if value < 0
+     * @throws NotPositiveNumberException called if value &lt; 0
      */
     public void setNumberOfFloors(String numberOfFloors) throws NotPositiveNumberException {
        try {

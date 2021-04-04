@@ -2,7 +2,7 @@ package ru.nanikon.FlatCollection.commands;
 
 import ru.nanikon.FlatCollection.arguments.AbstractArgument;
 import ru.nanikon.FlatCollection.arguments.FlatArg;
-import ru.nanikon.FlatCollection.arguments.IdArg;
+import ru.nanikon.FlatCollection.arguments.IndexArg;
 import ru.nanikon.FlatCollection.data.Flat;
 import ru.nanikon.FlatCollection.data.FlatBuilder;
 import ru.nanikon.FlatCollection.exceptions.NotPositiveNumberException;
@@ -13,12 +13,12 @@ import ru.nanikon.FlatCollection.utility.CollectionManager;
  */
 public class InsertCommand implements Command {
     private CollectionManager collection;
-    private AbstractArgument<?>[] params = {new IdArg(), new FlatArg()};
+    private AbstractArgument<?>[] params = {new IndexArg(), new FlatArg()};
     private String information = "'insert_at index {element}' - добавить новый элемент в заданную позицию";
 
     public InsertCommand(CollectionManager collection) {
         this.collection = collection;
-        ((IdArg) params[0]).setCollection(collection);
+        ((IndexArg) params[0]).setCollection(collection);
     }
 
     /**
@@ -27,7 +27,7 @@ public class InsertCommand implements Command {
      */
     @Override
     public String execute(AbstractArgument<?>[] params) {
-        int id = ((IdArg) params[0]).getValue();
+        int id = ((IndexArg) params[0]).getValue();
         FlatBuilder builder = ((FlatArg) params[1]).getBuilder();
         try {
             builder.setId(String.valueOf(collection.generateNextId()));

@@ -59,8 +59,13 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <!-- switch on dependency-driven aggregation -->
-                            <includeDependencySources>true</includeDependencySources>
+                            <!-- switch on dependency-driven aggregation
+                            <includeDependencySources>true</includeDependencySources>-->
+
+                            <dependencySourceExcludes>
+                                <!-- exclude ONLY commons-cli artifacts
+                                <dependencySourceExclude>commons-cli:*</dependencySourceExclude>-->
+                            </dependencySourceExcludes>
                         </configuration>
                     </execution>
                 </executions>

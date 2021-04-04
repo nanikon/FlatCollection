@@ -24,7 +24,7 @@ public class IdArg extends AbstractArgument<Integer> {
     @Override
     public void setValue(String value) {
         try {
-            Integer result = Integer.valueOf(value);
+            int result = Integer.parseInt(value);
             if (result <= 0) {
                 throw new NotPositiveNumberException("Аргумент id должен быть больше 0");
             }

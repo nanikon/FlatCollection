@@ -154,12 +154,16 @@ public class Main {
                     scr.close();
                     scr = scannerStack.pop();
                     Path path = pathStack.pop();
+                    System.out.println("Завершена работа файла " + path.getFileName());
                 }
+            } catch (OutOfMemoryError e) {
+                System.out.println("Программа дошла до переполнения кучи");
             }
             while (!(pathStack.isEmpty() || scr.hasNextLine())) {
                 scr.close();
                 scr = scannerStack.pop();
                 Path path = pathStack.pop();
+                System.out.println("Завершена работа файла " + path.getFileName());
             }
         }
     }

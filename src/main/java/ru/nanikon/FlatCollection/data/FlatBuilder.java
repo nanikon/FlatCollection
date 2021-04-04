@@ -28,7 +28,7 @@ public class FlatBuilder {
     /**
      * Checks that the entered value is not empty and a natural number. Use only in work with file
      * @param value value read from file
-     * @throws NotPositiveNumberException if id < 1
+     * @throws NotPositiveNumberException if id &lt; 1
      */
     public void setId(String value) throws NotPositiveNumberException {
         try {
@@ -81,7 +81,7 @@ public class FlatBuilder {
     /**
      * Checks that the value is a natural number
      * @param value value read from file or console
-     * @throws NotPositiveNumberException if value < 0
+     * @throws NotPositiveNumberException if value &lt; 0
      */
     public void setArea(String value) throws NotPositiveNumberException {
         try {
@@ -104,7 +104,7 @@ public class FlatBuilder {
     /**
      * Checks that the value is a natural number
      * @param value value read from file or console
-     * @throws NotPositiveNumberException if value < 0
+     * @throws NotPositiveNumberException if value &lt; 0
      */
     public void setNumberOfRooms(String value) throws NotPositiveNumberException {
         try {
@@ -201,7 +201,7 @@ public class FlatBuilder {
 
     /**
      * set entered creationDate. Use in work with file and in update
-     * @param creationDate
+     * @param creationDate date and time when object was created
      */
     public void setCreationDate(java.time.ZonedDateTime creationDate) {
         this.creationDate = creationDate;

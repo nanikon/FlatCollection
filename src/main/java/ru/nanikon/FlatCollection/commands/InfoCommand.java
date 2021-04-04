@@ -20,7 +20,7 @@ public class InfoCommand implements Command {
     /**
      * running the command
      * @param params - params of Command
-     * @return
+     * @return String - information about collection
      */
     @Override
     public String execute(AbstractArgument<?>[] params) {
